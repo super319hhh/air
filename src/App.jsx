@@ -16,12 +16,13 @@ import { createBrowserHistory } from "history";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Inbox from "./component/inbox.jsx";
+import Middleware from "./store/middleware/index";
 
 const store = configureStore({
   reducer: {
     main: MainReducer,
   },
-  middleware: [thunk],
+  middleware: [thunk, Middleware],
 });
 
 export const history = createBrowserHistory({ window });
@@ -36,10 +37,10 @@ const App = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <LinkContainer to="/inbox">
+                <LinkContainer to="/">
                   <Nav.Link>Inbox</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/">
+                <LinkContainer to="/allcalls">
                   <Nav.Link>All calls</Nav.Link>
                 </LinkContainer>
               </Nav>
@@ -47,7 +48,7 @@ const App = () => {
           </Navbar>
 
           <Routes>
-            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/" element={<Inbox />} />
             {/* <Route path="product" element={<Product />} />
             <Route path="cart" element={<></>} /> */}
           </Routes>
