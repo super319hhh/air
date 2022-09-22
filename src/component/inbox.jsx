@@ -9,6 +9,8 @@ import {
 import { arrayGroupBy } from "../utils/group";
 import moment from "moment";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const Inbox = (__props) => {
   const dispatch = useDispatch();
@@ -64,6 +66,7 @@ const Inbox = (__props) => {
                   >
                     <div className="flex_column">
                       <div className="call_from">
+                        <FontAwesomeIcon icon={faPhone} />
                         {item2.direction === "outbound" ? item2.to : item2.from}
                       </div>
                       <div className="call_vie">Try to call on {item2.via}</div>

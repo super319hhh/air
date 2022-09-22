@@ -35,10 +35,13 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
   padding: 5px;
+  height: 70px;
+  transition: all 0.1s ease-in-out;
 }
 
 .flex_row.call_body.extended {
   height: 80px;
+  transition: all 0.1s ease-in-out;
 }
 
 .call_vie {
@@ -67,4 +70,8 @@ body {
 .call_from {
   color: #000;
   font-weight: 900;
+}
+
+.fa-phone {
+  margin-right: 5px;
 }
