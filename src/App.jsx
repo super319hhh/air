@@ -16,6 +16,7 @@ import { createBrowserHistory } from "history";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Inbox from "./component/inbox.jsx";
+import Archived from "./component/archived.jsx";
 import Middleware from "./store/middleware/index";
 
 const store = configureStore({
@@ -40,8 +41,8 @@ const App = () => {
                 <LinkContainer to="/">
                   <Nav.Link>Inbox</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/allcalls">
-                  <Nav.Link>All calls</Nav.Link>
+                <LinkContainer to="/Archived">
+                  <Nav.Link>Archived</Nav.Link>
                 </LinkContainer>
               </Nav>
             </Navbar.Collapse>
@@ -49,8 +50,7 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<Inbox />} />
-            {/* <Route path="product" element={<Product />} />
-            <Route path="cart" element={<></>} /> */}
+            <Route path="/Archived" element={<Archived />} />
           </Routes>
         </HistoryRouter>
       </div>

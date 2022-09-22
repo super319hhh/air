@@ -29,6 +29,15 @@ const mainSlice = createSlice({
       })
       .addCase(archiveCall.rejected, (state, action) => {
         state.status = "failed";
+      })
+      .addCase(unArchiveCall.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(unArchiveCall.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(unArchiveCall.rejected, (state, action) => {
+        state.status = "failed";
       });
   },
 });
@@ -55,3 +64,19 @@ export const archiveCall = createAsyncThunk("calls/archiveCall", async (id) => {
 
   return response.data;
 });
+
+export const unArchiveCall = createAsyncThunk(
+  "calls/unArchiveCall",
+  async (id) => {
+    const requestBody = {
+      is_archived: false,
+    };
+
+    const response = await axios.post(
+      `https://aircall-job.herokuapp.com/activities/${id}`,
+      requestBody
+    );
+
+    return response.data;
+  }
+);
