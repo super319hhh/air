@@ -32,7 +32,8 @@ const Inbox = (__props) => {
     );
 
   let groupedCalls = arrayGroupBy(calls, "Date"),
-    handleUnArchiveCall = (id) => {
+    handleUnArchiveCall = (ev, id) => {
+      ev.stopPropagation();
       dispatch(unArchiveCall(id));
     },
     handleExtend = (ev, id) => {
@@ -80,8 +81,8 @@ const Inbox = (__props) => {
                       <button
                         type="button"
                         className="btn btn-primary btn-sm"
-                        onClick={() => {
-                          handleUnArchiveCall(item2.id);
+                        onClick={(ev) => {
+                          handleUnArchiveCall(ev, item2.id);
                         }}
                       >
                         Unarchive
