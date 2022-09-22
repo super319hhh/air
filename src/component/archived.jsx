@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCalls, unArchiveCall } from "../store/reducer/index";
+import {
+  fetchAllCalls,
+  unArchiveCall,
+  closeExtend,
+} from "../store/reducer/index";
 import { arrayGroupBy } from "../utils/group";
 import moment from "moment";
 
@@ -10,6 +14,12 @@ const Inbox = (__props) => {
   React.useEffect(() => {
     dispatch(fetchAllCalls());
   }, []);
+
+  React.useEffect(() => {
+    if (!__props.extend) {
+      dispatch(closeExtend());
+    }
+  }, [__props.extend]);
 
   let calls = useSelector((state) => state.main.calls);
 
@@ -24,6 +34,11 @@ const Inbox = (__props) => {
   let groupedCalls = arrayGroupBy(calls, "Date"),
     handleUnArchiveCall = (id) => {
       dispatch(unArchiveCall(id));
+    },
+    handleExtend = (ev, id) => {
+      ev.stopPropagation();
+      __props.setExtend(id);
+      dispatch(fetchCallById(id));
     };
 
   return (
@@ -36,10 +51,29 @@ const Inbox = (__props) => {
             {item1.map((item2) => {
               return (
                 <div>
-                  <div className="flex_row call_body">
+                  <div
+                    className={`flex_row call_body ${
+                      __props.extend === item2.id ? "extended" : ""
+                    }`}
+                    onClick={(ev) => {
+                      handleExtend(ev, item2.id);
+                    }}
+                  >
                     <div className="flex_column">
-                      <div className="call_from">{item2.from}</div>
+                      <div className="call_from">
+                        {item2.direction === "outbound" ? item2.to : item2.from}
+                      </div>
                       <div className="call_vie">Try to call on {item2.via}</div>
+                      {__props.extend === item2.id ? (
+                        <div>
+                          <div className="call_duration">
+                            Duration: {item2.duration} sec
+                          </div>
+                          <div className="call_type">{item2.call_type}</div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="flex_column">
                       {moment(item2.created_at).format("LT")}

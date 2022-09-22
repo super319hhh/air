@@ -37,7 +37,19 @@ body {
   padding: 5px;
 }
 
+.flex_row.call_body.extended {
+  height: 80px;
+}
+
 .call_vie {
+  font-size: 10px;
+}
+
+.call_duration {
+  font-size: 10px;
+}
+
+.call_type {
   font-size: 10px;
 }
 

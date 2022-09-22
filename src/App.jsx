@@ -10,7 +10,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import Header from "./Header.jsx";
 import { LinkContainer } from "react-router-bootstrap";
 import { configureStore } from "@reduxjs/toolkit";
-import MainReducer from "./store/reducer";
+import MainReducer, { closeExtend } from "./store/reducer";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,9 +29,14 @@ const store = configureStore({
 export const history = createBrowserHistory({ window });
 
 const App = () => {
+  let [extend, setExtend] = React.useState(null),
+    handleCloseExtend = () => {
+      setExtend(null);
+    };
+
   return (
     <Provider store={store}>
-      <div className="container">
+      <div className="container" onClick={handleCloseExtend}>
         <Header />
         <HistoryRouter history={history}>
           <Navbar bg="light" expand="lg">
@@ -49,8 +54,14 @@ const App = () => {
           </Navbar>
 
           <Routes>
-            <Route path="/" element={<Inbox />} />
-            <Route path="/Archived" element={<Archived />} />
+            <Route
+              path="/"
+              element={<Inbox extend={extend} setExtend={setExtend} />}
+            />
+            <Route
+              path="/Archived"
+              element={<Archived extend={extend} setExtend={setExtend} />}
+            />
           </Routes>
         </HistoryRouter>
       </div>

@@ -3,12 +3,17 @@ import axios from "axios";
 
 const initialState = {
   calls: [],
+  selectedCall: null,
 };
 
 const mainSlice = createSlice({
   name: "main",
   initialState,
-  reducers: {},
+  reducers: {
+    closeExtend(state) {
+      state.selectedCall = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAllCalls.pending, (state, action) => {
@@ -38,9 +43,21 @@ const mainSlice = createSlice({
       })
       .addCase(unArchiveCall.rejected, (state, action) => {
         state.status = "failed";
+      })
+      .addCase(fetchCallById.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCallById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.selectedCall = action.payload;
+      })
+      .addCase(fetchCallById.rejected, (state, action) => {
+        state.status = "failed";
       });
   },
 });
+
+export const { closeExtend } = mainSlice.actions;
 
 export default mainSlice.reducer;
 
@@ -75,6 +92,16 @@ export const unArchiveCall = createAsyncThunk(
     const response = await axios.post(
       `https://aircall-job.herokuapp.com/activities/${id}`,
       requestBody
+    );
+
+    return response.data;
+  }
+);
+export const fetchCallById = createAsyncThunk(
+  "calls/fetchCallById",
+  async (id) => {
+    const response = await axios.get(
+      `https://aircall-job.herokuapp.com/activities/${id}`
     );
 
     return response.data;
