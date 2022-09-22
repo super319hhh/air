@@ -14,7 +14,7 @@ const Inbox = (__props) => {
   let calls = useSelector((state) => state.main.calls);
 
   calls = calls
-    .filter((item) => item.direction === "inbound" && !item.is_archived)
+    .filter((item) => !item.is_archived)
     .map((item) =>
       Object.assign({}, item, {
         Date: moment(item.created_at).format("MMM Do YY"),

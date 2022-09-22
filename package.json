@@ -9,8 +9,7 @@
   "private": false,
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
-    "heroku-prebuild": "npm install --dev"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
