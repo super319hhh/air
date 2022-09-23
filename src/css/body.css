@@ -22,6 +22,14 @@ body {
 
 .body {
   color: grey;
+  max-height: 550px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: auto;
+}
+
+.body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .flex_row {
