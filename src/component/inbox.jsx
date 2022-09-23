@@ -8,7 +8,6 @@ import {
 } from "../store/reducer/index";
 import { arrayGroupBy } from "../utils/group";
 import moment from "moment";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
@@ -47,7 +46,6 @@ const Inbox = (__props) => {
     };
 
   return (
-    //groupedcalls to be 0 length?
     <div className="body">
       {groupedCalls.map((item1, index) => {
         return (
